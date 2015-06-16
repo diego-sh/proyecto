@@ -3,23 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,56 +19,34 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CONSUMO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Consumo.findAll", query = "SELECT c FROM Consumo c")})
+
 public class Consumo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_CONUSMO", nullable = false)
-    private Short codConusmo;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "COD_CONSUMO", nullable = false)
+    private Integer codigo;
     @Column(name = "CANTIDAD_PRODUCTO", nullable = false)
-    private BigInteger cantidadProducto;
-    @Size(max = 100)
+    private Integer cantidad;
     @Column(name = "DETALLE", length = 100)
     private String detalle;
-    @JoinColumn(name = "COD_VISITA", referencedColumnName = "COD_VISITA")
+    @Column(name = "COD_VISITA")
+    private String codigoVisita;
+    @Column(name = "COD_PRODUCTO")
+    private String codigoProducto;
+
+    @JoinColumn(name = "COD_VISITA", referencedColumnName = "COD_VISITA", insertable = false, updatable = false)
     @ManyToOne
-    private Visita codVisita;
-    @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO")
+    private Visita visita;
+    @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO", insertable = false, updatable = false)
     @ManyToOne
-    private Producto codProducto;
+    private Producto producto;
 
     public Consumo() {
     }
 
-    public Consumo(Short codConusmo) {
-        this.codConusmo = codConusmo;
-    }
-
-    public Consumo(Short codConusmo, BigInteger cantidadProducto) {
-        this.codConusmo = codConusmo;
-        this.cantidadProducto = cantidadProducto;
-    }
-
-    public Short getCodConusmo() {
-        return codConusmo;
-    }
-
-    public void setCodConusmo(Short codConusmo) {
-        this.codConusmo = codConusmo;
-    }
-
-    public BigInteger getCantidadProducto() {
-        return cantidadProducto;
-    }
-
-    public void setCantidadProducto(BigInteger cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
+    public Consumo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getDetalle() {
@@ -87,26 +57,58 @@ public class Consumo implements Serializable {
         this.detalle = detalle;
     }
 
-    public Visita getCodVisita() {
-        return codVisita;
+    public Visita getVisita() {
+        return visita;
     }
 
-    public void setCodVisita(Visita codVisita) {
-        this.codVisita = codVisita;
+    public void setVisita(Visita visita) {
+        this.visita = visita;
     }
 
-    public Producto getCodProducto() {
-        return codProducto;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setCodProducto(Producto codProducto) {
-        this.codProducto = codProducto;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getCodigoVisita() {
+        return codigoVisita;
+    }
+
+    public void setCodigoVisita(String codigoVisita) {
+        this.codigoVisita = codigoVisita;
+    }
+
+    public String getCodigoProducto() {
+        return codigoProducto;
+    }
+
+    public void setCodigoProducto(String codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codConusmo != null ? codConusmo.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +119,7 @@ public class Consumo implements Serializable {
             return false;
         }
         Consumo other = (Consumo) object;
-        if ((this.codConusmo == null && other.codConusmo != null) || (this.codConusmo != null && !this.codConusmo.equals(other.codConusmo))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -125,7 +127,7 @@ public class Consumo implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.Consumo[ codConusmo=" + codConusmo + " ]";
+        return "Consumo{" + "codigo=" + codigo + ", cantidad=" + cantidad + ", detalle=" + detalle + ", codigoVisita=" + codigoVisita + ", codigoProducto=" + codigoProducto + '}';
     }
-    
+
 }

@@ -3,15 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -19,46 +15,41 @@ import javax.validation.constraints.Size;
  */
 @Embeddable
 public class ConsumoActividadPK implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
+
     @Column(name = "COD_VISITA", nullable = false, length = 8)
-    private String codVisita;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
+    private String codigoVisita;
     @Column(name = "COD_ACTIVIDAD", nullable = false, length = 4)
-    private String codActividad;
+    private String codigoActividad;
 
     public ConsumoActividadPK() {
     }
 
     public ConsumoActividadPK(String codVisita, String codActividad) {
-        this.codVisita = codVisita;
-        this.codActividad = codActividad;
+        this.codigoVisita = codVisita;
+        this.codigoActividad = codActividad;
     }
 
-    public String getCodVisita() {
-        return codVisita;
+    public String getCodigoVisita() {
+        return codigoVisita;
     }
 
-    public void setCodVisita(String codVisita) {
-        this.codVisita = codVisita;
+    public void setCodigoVisita(String codigoVisita) {
+        this.codigoVisita = codigoVisita;
     }
 
-    public String getCodActividad() {
-        return codActividad;
+    public String getCodigoActividad() {
+        return codigoActividad;
     }
 
-    public void setCodActividad(String codActividad) {
-        this.codActividad = codActividad;
+    public void setCodigoActividad(String codigoActividad) {
+        this.codigoActividad = codigoActividad;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codVisita != null ? codVisita.hashCode() : 0);
-        hash += (codActividad != null ? codActividad.hashCode() : 0);
+        hash += (codigoVisita != null ? codigoVisita.hashCode() : 0);
+        hash += (codigoActividad != null ? codigoActividad.hashCode() : 0);
         return hash;
     }
 
@@ -69,10 +60,10 @@ public class ConsumoActividadPK implements Serializable {
             return false;
         }
         ConsumoActividadPK other = (ConsumoActividadPK) object;
-        if ((this.codVisita == null && other.codVisita != null) || (this.codVisita != null && !this.codVisita.equals(other.codVisita))) {
+        if ((this.codigoVisita == null && other.codigoVisita != null) || (this.codigoVisita != null && !this.codigoVisita.equals(other.codigoVisita))) {
             return false;
         }
-        if ((this.codActividad == null && other.codActividad != null) || (this.codActividad != null && !this.codActividad.equals(other.codActividad))) {
+        if ((this.codigoActividad == null && other.codigoActividad != null) || (this.codigoActividad != null && !this.codigoActividad.equals(other.codigoActividad))) {
             return false;
         }
         return true;
@@ -80,7 +71,7 @@ public class ConsumoActividadPK implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.ConsumoActividadPK[ codVisita=" + codVisita + ", codActividad=" + codActividad + " ]";
+        return "ConsumoActividadPK{" + "codigoVisita=" + codigoVisita + ", codigoActividad=" + codigoActividad + '}';
     }
-    
+
 }

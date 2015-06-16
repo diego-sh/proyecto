@@ -3,24 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,77 +17,53 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "ACTIVIDAD")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Actividad.findAll", query = "SELECT a FROM Actividad a")})
+
 public class Actividad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
     @Column(name = "COD_ACTIVIDAD", nullable = false, length = 4)
-    private String codActividad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    private String codigo;
     @Column(name = "NOMBRE_ACTIVIDAD", nullable = false, length = 200)
-    private String nombreActividad;
-    @Size(max = 300)
+    private String nombre;
     @Column(name = "DESC_ACTIVIDAD", length = 300)
-    private String descActividad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actividad")
-    private List<ConsumoActividad> consumoActividadList;
+    private String descripcion;
 
     public Actividad() {
     }
 
     public Actividad(String codActividad) {
-        this.codActividad = codActividad;
+        this.codigo = codActividad;
     }
 
-    public Actividad(String codActividad, String nombreActividad) {
-        this.codActividad = codActividad;
-        this.nombreActividad = nombreActividad;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public String getCodActividad() {
-        return codActividad;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodActividad(String codActividad) {
-        this.codActividad = codActividad;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getNombreActividad() {
-        return nombreActividad;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreActividad = nombreActividad;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public String getDescActividad() {
-        return descActividad;
-    }
-
-    public void setDescActividad(String descActividad) {
-        this.descActividad = descActividad;
-    }
-
-    @XmlTransient
-    public List<ConsumoActividad> getConsumoActividadList() {
-        return consumoActividadList;
-    }
-
-    public void setConsumoActividadList(List<ConsumoActividad> consumoActividadList) {
-        this.consumoActividadList = consumoActividadList;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codActividad != null ? codActividad.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -109,7 +74,7 @@ public class Actividad implements Serializable {
             return false;
         }
         Actividad other = (Actividad) object;
-        if ((this.codActividad == null && other.codActividad != null) || (this.codActividad != null && !this.codActividad.equals(other.codActividad))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -117,7 +82,7 @@ public class Actividad implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.Actividad[ codActividad=" + codActividad + " ]";
+        return "Actividad{" + "codigo=" + codigo + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
-    
+
 }

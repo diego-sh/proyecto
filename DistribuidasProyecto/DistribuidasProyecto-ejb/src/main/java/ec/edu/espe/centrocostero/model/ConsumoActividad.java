@@ -3,23 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,50 +20,40 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "CONSUMO_ACTIVIDAD")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ConsumoActividad.findAll", query = "SELECT c FROM ConsumoActividad c")})
 public class ConsumoActividad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected ConsumoActividadPK consumoActividadPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
+    private ConsumoActividadPK pk;
     @Column(name = "VALOR", nullable = false, precision = 3, scale = 2)
     private BigDecimal valor;
-    @Size(max = 200)
     @Column(name = "DETALLE", length = 200)
     private String detalle;
-    @JoinColumn(name = "COD_VISITA", referencedColumnName = "COD_VISITA", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @Column(name = "COD_VISITA")
+    private String codigoVisita;
+    @Column(name = "COD_ACTIVIDAD")
+    private String codigoActividad;
+
+    @JoinColumn(name = "COD_VISITA", referencedColumnName = "COD_VISITA", insertable = false, updatable = false)
+    @ManyToOne
     private Visita visita;
-    @JoinColumn(name = "COD_ACTIVIDAD", referencedColumnName = "COD_ACTIVIDAD", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "COD_ACTIVIDAD", referencedColumnName = "COD_ACTIVIDAD", insertable = false, updatable = false)
+    @ManyToOne
     private Actividad actividad;
 
     public ConsumoActividad() {
     }
 
     public ConsumoActividad(ConsumoActividadPK consumoActividadPK) {
-        this.consumoActividadPK = consumoActividadPK;
+        this.pk = consumoActividadPK;
     }
 
-    public ConsumoActividad(ConsumoActividadPK consumoActividadPK, BigDecimal valor) {
-        this.consumoActividadPK = consumoActividadPK;
-        this.valor = valor;
+    public ConsumoActividadPK getPk() {
+        return pk;
     }
 
-    public ConsumoActividad(String codVisita, String codActividad) {
-        this.consumoActividadPK = new ConsumoActividadPK(codVisita, codActividad);
-    }
-
-    public ConsumoActividadPK getConsumoActividadPK() {
-        return consumoActividadPK;
-    }
-
-    public void setConsumoActividadPK(ConsumoActividadPK consumoActividadPK) {
-        this.consumoActividadPK = consumoActividadPK;
+    public void setPk(ConsumoActividadPK pk) {
+        this.pk = pk;
     }
 
     public BigDecimal getValor() {
@@ -105,10 +88,26 @@ public class ConsumoActividad implements Serializable {
         this.actividad = actividad;
     }
 
+    public String getCodigoVisita() {
+        return codigoVisita;
+    }
+
+    public void setCodigoVisita(String codigoVisita) {
+        this.codigoVisita = codigoVisita;
+    }
+
+    public String getCodigoActividad() {
+        return codigoActividad;
+    }
+
+    public void setCodigoActividad(String codigoActividad) {
+        this.codigoActividad = codigoActividad;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (consumoActividadPK != null ? consumoActividadPK.hashCode() : 0);
+        hash += (pk != null ? pk.hashCode() : 0);
         return hash;
     }
 
@@ -119,7 +118,7 @@ public class ConsumoActividad implements Serializable {
             return false;
         }
         ConsumoActividad other = (ConsumoActividad) object;
-        if ((this.consumoActividadPK == null && other.consumoActividadPK != null) || (this.consumoActividadPK != null && !this.consumoActividadPK.equals(other.consumoActividadPK))) {
+        if ((this.pk == null && other.pk != null) || (this.pk != null && !this.pk.equals(other.pk))) {
             return false;
         }
         return true;
@@ -127,7 +126,7 @@ public class ConsumoActividad implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.ConsumoActividad[ consumoActividadPK=" + consumoActividadPK + " ]";
+        return "ConsumoActividad{" + "pk=" + pk + '}';
     }
-    
+
 }

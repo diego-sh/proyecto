@@ -3,28 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,48 +23,38 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "FACTURA")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f")})
+
 public class Factura implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_FACTURA", nullable = false)
-    private Integer codFactura;
-    @Basic(optional = false)
-    @NotNull
+    private Integer codigo;
     @Column(name = "FECHA", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TOTAL", precision = 10, scale = 2)
     private BigDecimal total;
-    @OneToMany(mappedBy = "codFactura")
-    private List<Detalle> detalleList;
-    @JoinColumn(name = "CEDULA", referencedColumnName = "CEDULA")
+    @Column(name = "CEDULA")
+    private String cedula;
+
+    @JoinColumn(name = "CEDULA", referencedColumnName = "CEDULA", insertable = false, updatable = false)
     @ManyToOne
-    private Cliente cedula;
+    private Cliente cliente;
 
     public Factura() {
     }
 
     public Factura(Integer codFactura) {
-        this.codFactura = codFactura;
+        this.codigo = codFactura;
     }
 
-    public Factura(Integer codFactura, Date fecha) {
-        this.codFactura = codFactura;
-        this.fecha = fecha;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodFactura() {
-        return codFactura;
-    }
-
-    public void setCodFactura(Integer codFactura) {
-        this.codFactura = codFactura;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public Date getFecha() {
@@ -92,27 +73,26 @@ public class Factura implements Serializable {
         this.total = total;
     }
 
-    @XmlTransient
-    public List<Detalle> getDetalleList() {
-        return detalleList;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setDetalleList(List<Detalle> detalleList) {
-        this.detalleList = detalleList;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public Cliente getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(Cliente cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codFactura != null ? codFactura.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -123,7 +103,7 @@ public class Factura implements Serializable {
             return false;
         }
         Factura other = (Factura) object;
-        if ((this.codFactura == null && other.codFactura != null) || (this.codFactura != null && !this.codFactura.equals(other.codFactura))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -131,7 +111,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.Factura[ codFactura=" + codFactura + " ]";
+        return "ec.edu.espe.centrocostero.model.Factura[ codFactura=" + codigo + " ]";
     }
-    
+
 }

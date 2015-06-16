@@ -3,25 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,88 +19,75 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "ESTABLECIMIENTO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Establecimiento.findAll", query = "SELECT e FROM Establecimiento e")})
+
 public class Establecimiento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
     @Column(name = "COD_ESTABLECIMIENTO", nullable = false, length = 4)
-    private String codEstablecimiento;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    private String codigo;
     @Column(name = "NOMBRE_ESTABLECIMIENTO", nullable = false, length = 50)
-    private String nombreEstablecimiento;
-    @Size(max = 100)
+    private String nombre;
     @Column(name = "DESC_ESTABLECIMIENTO", length = 100)
-    private String descEstablecimiento;
-    @JoinColumn(name = "COD_UBICACION", referencedColumnName = "COD_UBICACION")
+    private String descripcion;
+    @Column(name = "COD_UBICACION")
+    private String codigoUbicacion;
+
+    @JoinColumn(name = "COD_UBICACION", referencedColumnName = "COD_UBICACION", insertable = false, updatable = false)
     @ManyToOne
-    private Ubicacion codUbicacion;
-    @OneToMany(mappedBy = "codEstablecimiento")
-    private List<Visita> visitaList;
+    private Ubicacion ubicacion;
 
     public Establecimiento() {
     }
 
     public Establecimiento(String codEstablecimiento) {
-        this.codEstablecimiento = codEstablecimiento;
+        this.codigo = codEstablecimiento;
     }
 
-    public Establecimiento(String codEstablecimiento, String nombreEstablecimiento) {
-        this.codEstablecimiento = codEstablecimiento;
-        this.nombreEstablecimiento = nombreEstablecimiento;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public String getCodEstablecimiento() {
-        return codEstablecimiento;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodEstablecimiento(String codEstablecimiento) {
-        this.codEstablecimiento = codEstablecimiento;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getNombreEstablecimiento() {
-        return nombreEstablecimiento;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setNombreEstablecimiento(String nombreEstablecimiento) {
-        this.nombreEstablecimiento = nombreEstablecimiento;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public String getDescEstablecimiento() {
-        return descEstablecimiento;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setDescEstablecimiento(String descEstablecimiento) {
-        this.descEstablecimiento = descEstablecimiento;
+    public Ubicacion getUbicacion() {
+        return ubicacion;
     }
 
-    public Ubicacion getCodUbicacion() {
-        return codUbicacion;
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
-    public void setCodUbicacion(Ubicacion codUbicacion) {
-        this.codUbicacion = codUbicacion;
+    public String getCodigoUbicacion() {
+        return codigoUbicacion;
     }
 
-    @XmlTransient
-    public List<Visita> getVisitaList() {
-        return visitaList;
-    }
-
-    public void setVisitaList(List<Visita> visitaList) {
-        this.visitaList = visitaList;
+    public void setCodigoUbicacion(String codigoUbicacion) {
+        this.codigoUbicacion = codigoUbicacion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codEstablecimiento != null ? codEstablecimiento.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -121,7 +98,7 @@ public class Establecimiento implements Serializable {
             return false;
         }
         Establecimiento other = (Establecimiento) object;
-        if ((this.codEstablecimiento == null && other.codEstablecimiento != null) || (this.codEstablecimiento != null && !this.codEstablecimiento.equals(other.codEstablecimiento))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -129,7 +106,7 @@ public class Establecimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.Establecimiento[ codEstablecimiento=" + codEstablecimiento + " ]";
+        return "Establecimiento{" + "codigo=" + codigo + ", nombre=" + nombre + ", descripcion=" + descripcion + ", codigoUbicacion=" + codigoUbicacion + '}';
     }
-    
+
 }

@@ -3,24 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espe.centrocostero.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -28,66 +20,48 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "DETALLE")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Detalle.findAll", query = "SELECT d FROM Detalle d")})
+
 public class Detalle implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_DETALLE", nullable = false)
-    private Integer codDetalle;
-    @Basic(optional = false)
-    @NotNull
+    private Integer codigo;
     @Column(name = "CANTIDAD", nullable = false)
-    private BigInteger cantidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
+    private Integer cantidad;
     @Column(name = "PRECIO_UNITARIO", nullable = false, precision = 3, scale = 2)
     private BigDecimal precioUnitario;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "PRECIO_TOTAL", nullable = false, precision = 3, scale = 2)
     private BigDecimal precioTotal;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
-    @JoinColumn(name = "COD_FACTURA", referencedColumnName = "COD_FACTURA")
+    @Column(name = "COD_FACTURA")
+    private Integer codigoFactura;
+
+    @JoinColumn(name = "COD_FACTURA", referencedColumnName = "COD_FACTURA", insertable = false, updatable = false)
     @ManyToOne
-    private Factura codFactura;
+    private Factura factura;
 
     public Detalle() {
     }
 
     public Detalle(Integer codDetalle) {
-        this.codDetalle = codDetalle;
+        this.codigo = codDetalle;
     }
 
-    public Detalle(Integer codDetalle, BigInteger cantidad, BigDecimal precioUnitario, BigDecimal precioTotal, String descripcion) {
-        this.codDetalle = codDetalle;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.precioTotal = precioTotal;
-        this.descripcion = descripcion;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodDetalle() {
-        return codDetalle;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodDetalle(Integer codDetalle) {
-        this.codDetalle = codDetalle;
-    }
-
-    public BigInteger getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(BigInteger cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -115,18 +89,26 @@ public class Detalle implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Factura getCodFactura() {
-        return codFactura;
+    public Factura getFactura() {
+        return factura;
     }
 
-    public void setCodFactura(Factura codFactura) {
-        this.codFactura = codFactura;
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public Integer getCodigoFactura() {
+        return codigoFactura;
+    }
+
+    public void setCodigoFactura(Integer codigoFactura) {
+        this.codigoFactura = codigoFactura;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codDetalle != null ? codDetalle.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +119,7 @@ public class Detalle implements Serializable {
             return false;
         }
         Detalle other = (Detalle) object;
-        if ((this.codDetalle == null && other.codDetalle != null) || (this.codDetalle != null && !this.codDetalle.equals(other.codDetalle))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -145,7 +127,7 @@ public class Detalle implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.centrocostero.model.Detalle[ codDetalle=" + codDetalle + " ]";
+        return "Detalle{" + "codigo=" + codigo + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", descripcion=" + descripcion + ", codigoFactura=" + codigoFactura + '}';
     }
-    
+
 }
